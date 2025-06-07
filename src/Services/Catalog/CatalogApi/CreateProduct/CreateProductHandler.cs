@@ -24,8 +24,7 @@ namespace CatalogApi.CreateProduct
                 Description = command.Description,
                 ImageFile = command.ImageFile,
                 Price = command.Price
-            };
-            //throw new NotImplementedException();
+            }; 
             session.Store(product);
             await session.SaveChangesAsync(cancellationToken);
 
