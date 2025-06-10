@@ -1,3 +1,4 @@
+using CatalogApi.Data;
 using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,12 @@ builder.Services.AddMarten(opts =>
 {
     opts.Connection(builder.Configuration.GetConnectionString("Database")!);
 }).UseLightweightSessions();
+
+if(builder.Environment.IsDevelopment())
+{
+    // Enable the Marten Studio in development mode
+    builder.Services.InitializeMartenWith<CatalogInitialData>();
+}
 
 var app = builder.Build();
 
