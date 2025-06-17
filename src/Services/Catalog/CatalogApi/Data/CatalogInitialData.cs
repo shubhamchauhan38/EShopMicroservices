@@ -1,4 +1,5 @@
-﻿using Marten;
+﻿using CatalogApi.Model;
+using Marten;
 using Marten.Schema;
 
 namespace CatalogApi.Data
