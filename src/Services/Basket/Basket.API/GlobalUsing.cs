@@ -4,3 +4,4 @@ global using MediatR;
 global using Marten;
 global using BuildingBlocks.Behaviors;
 global using BuildingBlocks.CQRS;
+global using Basket.API.Models;

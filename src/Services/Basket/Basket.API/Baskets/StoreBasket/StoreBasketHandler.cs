@@ -1,4 +1,5 @@
-﻿using Basket.API.Models;
+﻿using Basket.API.Data;
+using Basket.API.Models;
 using FluentValidation;
 
 namespace Basket.API.Baskets.StoreBasket
@@ -15,17 +16,17 @@ namespace Basket.API.Baskets.StoreBasket
             RuleFor(x => x.Cart.UserName).NotEmpty().WithMessage("UserName is required");
         }
     }
-    public class StoreBasketHandler 
+    public class StoreBasketHandler(IBasketRepository repository)
         : ICommandHandler<StoreBasketCommand, StoreBasketResult>
     {
         public async Task<StoreBasketResult> Handle(StoreBasketCommand command, CancellationToken cancellationToken)
         {
 
-            ShoppingCart cart = command.Cart;
-
             // Here you would typically save the cart to a database or cache.
 
-            return new StoreBasketResult("swm");
+            await repository.StoreBasket(command.Cart, cancellationToken);
+            return new StoreBasketResult(command.Cart.UserName);
+
         }
     }
 }

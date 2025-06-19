@@ -11,7 +11,7 @@
             UserName = userName;
         }
 
-        //Required for Mapping
+        //Required for Mapping9/
         public ShoppingCart()
         {
         }
