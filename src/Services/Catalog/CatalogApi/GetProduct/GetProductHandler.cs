@@ -15,7 +15,7 @@ namespace CatalogApi.GetProduct
             //Logger.LogInformation("GetProductQueryHandler")
             var product = await session.Query<Product>().ToListAsync(cancellationToken);
 
-            return new GetProductsResult(product);
+            return new GetProductsResult([]);
         }
     }
 }
