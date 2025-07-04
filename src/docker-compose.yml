@@ -1,0 +1,6 @@
+services:
+  basket.api:
+    image: ${DOCKER_REGISTRY-}basketapi
+    build:
+      context: eshop-microservice
+      dockerfile: ../Services/Basket/Basket.API/Dockerfile
