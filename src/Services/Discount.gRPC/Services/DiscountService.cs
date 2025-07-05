@@ -13,19 +13,17 @@ namespace Discount.gRPC.Services
     {
         public override async Task<CouponModel> GetDiscount(GetDiscountRequest request, ServerCallContext context)
         {
-            var coupon = await dbContext.Coupons.FirstOrDefaultAsync(x => x.ProductName == request.ProductName);
-            if (coupon == null)
-            {
-                throw new RpcException(new Status(StatusCode.NotFound, $"Discount not found for product {request.ProductName}"));
-            }
-            logger.LogInformation("Discount retrieved for product {ProductName}", request.ProductName);
-            return new CouponModel
-            {
-                Id = coupon.Id,
-                ProductName = coupon.ProductName,
-                Description = coupon.Description,
-                Amount = coupon.Amount
-            };
+            var coupon = await dbContext
+            .Coupons
+            .FirstOrDefaultAsync(x => x.ProductName == request.ProductName);
+
+            if (coupon is null)
+                coupon = new Coupon { ProductName = "No Discount", Amount = 0, Description = "No Discount Desc" };
+
+            logger.LogInformation("Discount is retrieved for ProductName : {productName}, Amount : {amount}", coupon.ProductName, coupon.Amount);
+
+            var couponModel = coupon.Adapt<CouponModel>();
+            return couponModel;
         }
         public override async Task<CouponModel> CreateDiscount(CreateDiscountRequest request, ServerCallContext context)
         {
@@ -60,8 +58,8 @@ namespace Discount.gRPC.Services
         public override async Task<DeleteDiscountResponse> DeleteDiscount(DeleteDiscountRequest request, ServerCallContext context)
         {
             var coupon = await dbContext
-                .Coupons
-                .FirstOrDefaultAsync(x => x.ProductName == request.ProductName);
+            .Coupons
+            .FirstOrDefaultAsync(x => x.ProductName == request.ProductName);
 
             if (coupon is null)
                 throw new RpcException(new Status(StatusCode.NotFound, $"Discount with ProductName={request.ProductName} is not found."));
