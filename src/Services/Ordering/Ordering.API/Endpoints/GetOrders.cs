@@ -1,4 +1,6 @@
 ﻿using BuildingBlocks.Pagination;
+using Carter;
+using Ordering.Application.Dtos;
 using Ordering.Application.Orders.Queries.GetOrders;
 
 namespace Ordering.API.Endpoints;
