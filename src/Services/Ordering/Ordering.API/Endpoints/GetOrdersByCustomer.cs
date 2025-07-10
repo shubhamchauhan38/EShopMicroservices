@@ -1,4 +1,6 @@
-﻿using Ordering.Application.Orders.Queries.GetOrdersByCustomer;
+﻿using Carter;
+using Ordering.Application.Dtos;
+using Ordering.Application.Orders.Queries.GetOrdersByCustomer;
 
 namespace Ordering.API.Endpoints;
 
